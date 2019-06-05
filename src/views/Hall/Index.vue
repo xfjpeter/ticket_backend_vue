@@ -37,7 +37,9 @@
           <tr v-for="(r, ri) in sites" :key="ri">
             <td style="border: 0; text-align: right; padding-right: 15px; padding-top:10px; display: block; width: 20px;">{{ri+1}}</td>
             <td v-for="(l, li) in r" :key="li">
-              <input readonly v-model="l.no" style="border: 0;">
+              <input readonly v-model="l.type" v-if="l.type == '@'" style="border: 0; background: #67C23A;">
+              <input readonly v-model="l.type" v-else-if="l.type == '#'" style="border: 0; background: #909399;">
+              <input readonly v-model="l.type" v-else style="border: 0; background: #E6A23C;">
             </td>
           </tr>
         </tbody>

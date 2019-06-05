@@ -1,5 +1,10 @@
 <template>
   <div class="order">
+
+    <div class="toolbar">
+      <el-button type="danger" @click="exportData">导出数据</el-button>
+    </div>
+
     <el-table :data="data" border>
       <el-table-column prop="order_no" label="订单号" align="center" width="260px"></el-table-column>
       <el-table-column prop="details.activity.name" label="活动名称" align="center"></el-table-column>
@@ -57,8 +62,8 @@
           </div>
           <div>
             <span>座位：</span>
-            <span v-for="(r, ri) in details.details.hall.map" :key="ri">
-              <el-tag type="primary">{{r[0] + '排' + r[1] + '座'}}</el-tag>
+            <span v-for="(r, ri) in details.details.hall.sites" :key="ri">
+              <el-tag size="mini" style="margin: 0 5px 5px 0;" type="primary">{{r}}</el-tag>
             </span>
           </div>
         </el-collapse-item>
@@ -135,6 +140,14 @@ export default {
       }
 
       return text
+    },
+
+    exportData () {
+      const cookie = require('js-cookie')
+      const authorization = cookie.get('authorization')
+      const prefix = process.env.VUE_APP_BASE_URL
+      const url = `${prefix}/orders/export?authorization=${authorization}`
+      window.open(url)
     }
   }
 }
